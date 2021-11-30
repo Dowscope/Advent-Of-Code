@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Visual Studio Code Files
 .vscode/
+
+# Other Binaries
+*.run
