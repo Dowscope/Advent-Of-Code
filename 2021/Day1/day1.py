@@ -1,5 +1,16 @@
 #!/usr/bin/python
 
+#----------------- For Part 2 ---------------------
+
+# Function to return an array of summed numbers
+def three_meas_window(input):
+    three_meas = []
+    for i in range(len(input)-2):
+        three_meas.append(input[i] + input[i+1] + input[i+2])
+    return three_meas
+
+#----------------- For Part 1 ---------------------
+
 # Function to return the number of times the depth
 # increases
 def depth_increase_count(input):
@@ -25,4 +36,4 @@ input_text = input_file.read().split('\n')
 input_num = [int( n if n != '' else 0) for n in input_text]
 
 # Display on screen
-print(depth_increase_count(input_num))
+print(depth_increase_count(three_meas_window(input_num)))
