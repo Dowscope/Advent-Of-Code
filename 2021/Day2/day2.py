@@ -8,15 +8,19 @@ input_text = input_file.read().split('\n')
 horizontal_position = 0
 vertical_position = 0
 
+# Part 2 variables
+aim_position = 0
+
 # Loop through the input list.
 for move in input_text:
     waypoint = move.split(' ')
     if waypoint[0] == "forward":
         horizontal_position += int(waypoint[1])
+        vertical_position += aim_position * int(waypoint[1])
     elif waypoint[0] == "up":
-        vertical_position -= int(waypoint[1])
+        aim_position -= int(waypoint[1])
     elif waypoint[0] == "down":
-        vertical_position += int(waypoint[1])
+        aim_position += int(waypoint[1])
 
 # Print the result  
 print(horizontal_position * vertical_position)
