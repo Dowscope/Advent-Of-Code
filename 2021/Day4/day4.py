@@ -2,8 +2,23 @@
 
 from colorama import Fore
 
-ball_calls = []
-all_boards = []
+
+
+class bingo_card:
+    def __init__(self, board_text):
+        self.numbers = board_text
+    def print(self):
+        for line in self.board_text:
+            printable_line = ''
+            for num in line:
+                if num[1]:
+                    printable_line += Fore.YELLOW
+                printable_line += num[0] + " "
+                if num[1]:
+                    printable_line += Fore.RESET
+            print(printable_line)
+        print('')
+    del isWinner()
 
 def gen_boards(input):
     line_count = 0
@@ -23,8 +38,8 @@ def gen_boards(input):
             board.append(input[i])
             line_count += 1
             continue
-
-        boards.append(board)
+        finished_board = board
+        boards.append(finished_board)
         line_count = 1
         board.clear()
         board.append(input[i])
@@ -104,6 +119,9 @@ def play_bingo():
             print("BINGO")
             print_c_board(success[1])
             break
+
+ball_calls = []
+all_boards = []
 
 input_file = open("sample.txt")
 input_text = input_file.read().split("\n")
