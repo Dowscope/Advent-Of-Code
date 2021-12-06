@@ -3,12 +3,13 @@
 from colorama import Fore
 
 
-
-class bingo_card:
+class Bingo_card:
     def __init__(self, board_text):
         self.numbers = board_text
+        self.last_call_number= 0
+        self.won = False
     def print(self):
-        for line in self.board_text:
+        for line in self.numbers:
             printable_line = ''
             for num in line:
                 if num[1]:
@@ -18,14 +19,49 @@ class bingo_card:
                     printable_line += Fore.RESET
             print(printable_line)
         print('')
-    del isWinner()
+    def is_winner(self):
+        for i in range(len(self.numbers)):
+            horz_count = 0
+            vert_count = 0
+
+            for num in self.numbers[i]:
+                if num[1]:
+                    horz_count += 1
+                    if horz_count == 5:
+                        self.calc_win()
+                        return True
+
+            for j in range(5):
+                if self.numbers[j][i][1]:
+                    vert_count += 1
+                    if vert_count == 5:
+                        self.calc_win()
+                        return True
+    def calc_win(self):
+        sum_of_nums = 0
+        for line in self.numbers:
+            for num in line:
+                if num[1]:
+                    continue
+                sum_of_nums += int(num[0])
+        result = self.last_call_number * sum_of_nums
+        print(result)
+    def update(self, call):
+        self.last_call_number = int(call)
+        for line in self.numbers:
+            for num in line:
+                if num[0] == call:
+                    num[1] = True
+                    if self.is_winner():
+                        return True
+        return False
 
 def gen_boards(input):
     line_count = 0
 
-    boards = []
     board = []
 
+    global ball_calls
     ball_calls = input[0].split(',')
     input.pop(0)
 
@@ -38,13 +74,11 @@ def gen_boards(input):
             board.append(input[i])
             line_count += 1
             continue
-        finished_board = board
-        boards.append(finished_board)
+        game_boards.append(Bingo_card(clean_board(board)))
         line_count = 1
         board.clear()
         board.append(input[i])
-    boards.append(board)
-    return boards
+    game_boards.append(Bingo_card(clean_board(board)))
 
 def print_c_board(board):
     for line in board:
@@ -100,16 +134,16 @@ def is_winner(board, call):
                 if vert_count == 5:
                     calc_win(board, call)
                     return True
-        
+
 
 def check_boards(call):
-    for b in all_boards:
-        for line in b:
-            for num in line:
-                if num[0] == call:
-                    num[1] = True
-                    if is_winner(b, call):
-                        return [True,b]
+    for b in game_boards:
+        if b.won:
+            continue
+        elif b.update(call):
+            if wins == len(game_boards)-1:
+                return [True, b]
+            wins = wins + 1
     return [False,'']
 
 def play_bingo():
@@ -117,24 +151,24 @@ def play_bingo():
         success = check_boards(call)
         if success[0]:
             print("BINGO")
-            print_c_board(success[1])
+            success[1].print()
             break
 
 ball_calls = []
-all_boards = []
+game_boards = []
+wins = 0
 
 input_file = open("sample.txt")
 input_text = input_file.read().split("\n")
 
-unclean_boards = gen_boards(input_text)
+gen_boards(input_text)
 
-print(unclean_boards)
+# print(ball_calls)
+# for b in game_boards:
+#     b.print()
 
-# for b in boards:
-#     all_boards.append(clean_board(b))
+play_bingo()
 
-# play_bingo()
-
-# for b in all_boards:
-#     print_c_board(b)
+# for b in game_boards:
+#     b.print()
 
