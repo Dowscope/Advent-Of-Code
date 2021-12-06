@@ -2,6 +2,35 @@
 
 from colorama import Fore
 
+ball_calls = []
+all_boards = []
+
+def gen_boards(input):
+    line_count = 0
+
+    boards = []
+    board = []
+
+    ball_calls = input[0].split(',')
+    input.pop(0)
+
+    for line in input:
+        if line == '':
+            input.remove(line)
+
+    for i in range(len(input)):
+        if line_count < 5:
+            board.append(input[i])
+            line_count += 1
+            continue
+
+        boards.append(board)
+        line_count = 1
+        board.clear()
+        board.append(input[i])
+    boards.append(board)
+    return boards
+
 def print_c_board(board):
     for line in board:
         printable_line = ''
@@ -21,21 +50,42 @@ def clean_board(board):
         new_line = []
         for num in nums:
             if num == "":
-                pass
+                continue
             else:
                 n = [num, False]
                 new_line.append(n)
         new_board.append(new_line)
     return new_board
-        
-def is_winner(board):
+
+def calc_win(board, call):
+    sum_of_nums = 0
     for line in board:
-        horz_count = 0
         for num in line:
+            if num[1]:
+                continue
+            sum_of_nums += int(num[0])
+    result = int(call) * sum_of_nums
+    print(result)
+        
+def is_winner(board, call):
+    for i in range(len(board)):
+        horz_count = 0
+        vert_count = 0
+
+        for num in board[i]:
             if num[1]:
                 horz_count += 1
                 if horz_count == 5:
+                    calc_win(board, call)
                     return True
+
+        for j in range(5):
+            if board[j][i][1]:
+                vert_count += 1
+                if vert_count == 5:
+                    calc_win(board, call)
+                    return True
+        
 
 def check_boards(call):
     for b in all_boards:
@@ -43,7 +93,7 @@ def check_boards(call):
             for num in line:
                 if num[0] == call:
                     num[1] = True
-                    if is_winner(b):
+                    if is_winner(b, call):
                         return [True,b]
     return [False,'']
 
@@ -58,37 +108,15 @@ def play_bingo():
 input_file = open("sample.txt")
 input_text = input_file.read().split("\n")
 
-ball_calls = []
-line_count = 0
+unclean_boards = gen_boards(input_text)
 
-all_boards = []
-boards = []
-board = []
+print(unclean_boards)
 
-ball_calls = input_text[0].split(',')
-input_text.pop(0)
+# for b in boards:
+#     all_boards.append(clean_board(b))
 
-for line in input_text:
-    if line == '':
-        input_text.remove(line)
+# play_bingo()
 
-for i in range(len(input_text)):
-    if line_count < 5:
-        board.append(input_text[i])
-        line_count += 1
-        continue
-
-    boards.append(board)
-    line_count = 1
-    board.clear()
-    board.append(input_text[i])
-boards.append(board)
-
-
-for b in boards:
-    all_boards.append(clean_board(b))
-
-play_bingo()
-
-
+# for b in all_boards:
+#     print_c_board(b)
 
