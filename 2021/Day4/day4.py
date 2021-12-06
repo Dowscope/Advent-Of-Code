@@ -8,6 +8,7 @@ class Bingo_card:
         self.numbers = board_text
         self.last_call_number= 0
         self.won = False
+        self.result = 0
     def print(self):
         for line in self.numbers:
             printable_line = ''
@@ -19,6 +20,12 @@ class Bingo_card:
                     printable_line += Fore.RESET
             print(printable_line)
         print('')
+    def print_result(self):
+        print(self.result)
+    def print_last_call(self):
+        print(self.last_call_number)
+    def is_won(self):
+        return self.won
     def is_winner(self):
         for i in range(len(self.numbers)):
             horz_count = 0
@@ -29,6 +36,7 @@ class Bingo_card:
                     horz_count += 1
                     if horz_count == 5:
                         self.calc_win()
+                        self.won = True
                         return True
 
             for j in range(5):
@@ -36,6 +44,7 @@ class Bingo_card:
                     vert_count += 1
                     if vert_count == 5:
                         self.calc_win()
+                        self.won = True
                         return True
     def calc_win(self):
         sum_of_nums = 0
@@ -44,8 +53,7 @@ class Bingo_card:
                 if num[1]:
                     continue
                 sum_of_nums += int(num[0])
-        result = self.last_call_number * sum_of_nums
-        print(result)
+        self.result = self.last_call_number * sum_of_nums
     def update(self, call):
         self.last_call_number = int(call)
         for line in self.numbers:
@@ -135,15 +143,15 @@ def is_winner(board, call):
                     calc_win(board, call)
                     return True
 
-
 def check_boards(call):
     for b in game_boards:
-        if b.won:
+        if b.is_won():
             continue
         elif b.update(call):
-            if wins == len(game_boards)-1:
-                return [True, b]
+            global wins
             wins = wins + 1
+            if wins == len(game_boards):
+                return [True, b]
     return [False,'']
 
 def play_bingo():
@@ -151,6 +159,7 @@ def play_bingo():
         success = check_boards(call)
         if success[0]:
             print("BINGO")
+            success[1].print_result()
             success[1].print()
             break
 
@@ -158,14 +167,10 @@ ball_calls = []
 game_boards = []
 wins = 0
 
-input_file = open("sample.txt")
+input_file = open("input.txt")
 input_text = input_file.read().split("\n")
 
 gen_boards(input_text)
-
-# print(ball_calls)
-# for b in game_boards:
-#     b.print()
 
 play_bingo()
 
