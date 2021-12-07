@@ -1,4 +1,4 @@
-
+#!/usr/bin/python
 
 class Cell:
     def __init__(self, x, y):
@@ -13,6 +13,8 @@ class Cell:
         return self.y
     def add_touch_count(self):
         self.touch_counts = self.touch_counts + 1
+    def get_touch_counts(self):
+        return self.touch_counts
 
 def print_grid():
     grid = ""
@@ -26,13 +28,18 @@ def print_grid():
 
 def update_grid(x, y):
     for c in cells:
-        print(x,y)
         if c.get_x() == x and c.get_y() == y:
-            print('match')
             c.add_touch_count()
             return
 
-input_file = open("sample.txt")
+def show_result():
+    counter = 0
+    for c in cells:
+        if c.get_touch_counts() > 1:
+            counter += 1
+    return counter
+
+input_file = open("input.txt")
 input_text = input_file.read().split("\n")
 coords = []
 
@@ -60,7 +67,6 @@ for x in range(size[0]+1):
 for c in coords:
     start_coord = c[0]
     end_coord = c[1]
-    print(start_coord[0], start_coord[1], end_coord[0], end_coord[1])
     if start_coord[0] == end_coord[0]:
         for i in range(abs(int(start_coord[1]) - int(end_coord[1]))+1):
             if int(start_coord[1]) < int(end_coord[1]):
@@ -78,4 +84,5 @@ for c in coords:
                 update_grid(int(end_coord[0]) + i, int(start_coord[1]))
                 continue
 
-print_grid()
+print(len(cells))
+print(show_result())
