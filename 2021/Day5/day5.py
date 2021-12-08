@@ -1,45 +1,43 @@
 #!/usr/bin/python
 
-class Cell:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.touch_counts = 0
+class Line:
+    def __init__(self, x1, y1, x2, y2):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
     def print(self):
-        return str(self.touch_counts) if self.touch_counts > 0 else "."
-    def get_x(self):
-        return self.x
-    def get_y(self):
-        return self.y
-    def add_touch_count(self):
-        self.touch_counts = self.touch_counts + 1
-    def get_touch_counts(self):
-        return self.touch_counts
-
-def print_grid():
-    grid = ""
-    for y in range(size[1]+1):
-        for x in range(size[0]+1):
-            for c in cells:
-                if c.get_x() == x and c.get_y() == y:
-                    grid += c.print()
-        grid += '\n'
-    print(grid)
-
-def update_grid(x, y):
-    for c in cells:
-        if c.get_x() == x and c.get_y() == y:
-            c.add_touch_count()
-            return
+        return str(self.x1) + "," + str(self.y1) + " -> " + str(self.x2) + "," + str(self.y2)
+    def check_for_touch(self, line):
+        touches = 0
+        for y in range(abs(int(self.y2) - int(self.y1))):
+            for x in range(abs(int(self.x2) - int(self.x1))):
+                if line.is_on(x, y):
+                    touches += 1
+        return touches
+    def is_on(self, ax, ay):
+        for y in range(abs(self.y2 - self.y1)):
+            for x in range(abs(self.x2 - self.x1)):
+                startx = self.x1
+                starty = self.y1
+                if self.y1 > self.y2:
+                    starty = y2
+                if self.x1 > self.x2:
+                    startx = x2
+                if startx + x == ax and starty + y == ay:
+                    return True
+        return False
 
 def show_result():
     counter = 0
-    for c in cells:
-        if c.get_touch_counts() > 1:
-            counter += 1
+    while(len(lines) > 1):
+        line = lines[0]
+        lines.pop(0);
+        for l in lines:
+            counter += line.check_for_touch(l)
     return counter
 
-input_file = open("input.txt")
+input_file = open("sample.txt")
 input_text = input_file.read().split("\n")
 coords = []
 
@@ -51,38 +49,12 @@ for coords_raw in input_text:
         coord.append(new_coord)
     coords.append(coord)
 
-size = [0,0]
-for c in coords:
-    for i in c:
-        if int(i[0]) > size[0]:
-            size[0] = int(i[0])
-        if int(i[1]) > size[1]:
-            size[1] = int(i[1])
-
-cells = []
-for x in range(size[0]+1):
-    for y in range(size[1]+1):
-        cells.append(Cell(x, y))
-
+lines = []
 for c in coords:
     start_coord = c[0]
     end_coord = c[1]
-    if start_coord[0] == end_coord[0]:
-        for i in range(abs(int(start_coord[1]) - int(end_coord[1]))+1):
-            if int(start_coord[1]) < int(end_coord[1]):
-                update_grid(int(start_coord[0]), int(start_coord[1]) + i)
-                continue
-            else:
-                update_grid(int(start_coord[0]), int(end_coord[1]) + i)
-                continue
-    if start_coord[1] == end_coord[1]:
-        for i in range(abs(int(start_coord[0]) - int(end_coord[0]))+1):
-            if int(start_coord[0]) < int(end_coord[0]):
-                update_grid(int(start_coord[0]) + i, int(start_coord[1]))
-                continue
-            else:
-                update_grid(int(end_coord[0]) + i, int(start_coord[1]))
-                continue
+    if start_coord[0] == end_coord[0] or start_coord[1] == end_coord[1]:
+        lines.append(Line(start_coord[0], start_coord[1], end_coord[0], end_coord[1]))
 
-print(len(cells))
+print(len(lines))
 print(show_result())
