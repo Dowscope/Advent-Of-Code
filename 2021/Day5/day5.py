@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 class Line:
     def __init__(self, x1, y1, x2, y2):
@@ -10,20 +10,26 @@ class Line:
         return str(self.x1) + "," + str(self.y1) + " -> " + str(self.x2) + "," + str(self.y2)
     def check_for_touch(self, line):
         touches = 0
-        for y in range(abs(int(self.y2) - int(self.y1))):
-            for x in range(abs(int(self.x2) - int(self.x1))):
+        rangeX = range(abs(int(self.x2) - int(self.x1)))
+        rangeY = range(abs(int(self.y2) - int(self.y1)))
+        for y in rangeY:
+            print(y)
+            for x in rangeX:
+                print("this: " + x,y)
                 if line.is_on(x, y):
                     touches += 1
+
         return touches
     def is_on(self, ax, ay):
         for y in range(abs(self.y2 - self.y1)):
             for x in range(abs(self.x2 - self.x1)):
                 startx = self.x1
                 starty = self.y1
+                print("is_on")
                 if self.y1 > self.y2:
-                    starty = y2
+                    starty = self.y2
                 if self.x1 > self.x2:
-                    startx = x2
+                    startx = self.x2
                 if startx + x == ax and starty + y == ay:
                     return True
         return False
@@ -58,3 +64,6 @@ for c in coords:
 
 print(len(lines))
 print(show_result())
+
+# for l in lines:
+#     print(l.print())
