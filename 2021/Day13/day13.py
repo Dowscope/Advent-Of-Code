@@ -49,20 +49,13 @@ for d in dots:
 
 # ---------- Folding ----------
 
-new_board = []
+new_board = board.copy()
 fold_count = 0
 for f in folds:
     fold_count = fold_count + 1
     if f[0] == 'y':
-        nb = []
-        merge_board = []
-        for y in range(len(board)):
-            if y < int(f[1]):
-                nb.append(board[y])
-            elif y == int(f[1]):
-                continue
-            else:
-                merge_board.append(board[y])
+        nb = new_board[:int(f[1])]
+        merge_board = new_board[int(f[1])+1:]
         merge_board.reverse()
         for y in range(len(nb)-1, -1, -1):
             merge_line = merge_board.pop()
@@ -73,9 +66,17 @@ for f in folds:
     else:
         nb = []
         merge_board = []
-        for y in range(len(board)):
-            new_line = board[y][:f[1]]
-            nb = new_line.copy
+        for y in new_board:
+            nb.append(y[:int(f[1])])
+            merge_board.append(y[int(f[1])+1:])
+        for y in nb:
+            merge_line = merge_board.pop()
+            merge_line.reverse()
+            for x in range(len(y)-1, -1, -1):
+                if len(merge_line) > 0:
+                    merge_item = merge_line.pop()
+                    if merge_item == "#":
+                        y[x] = "#"
         new_board = nb.copy()
 
     dot_count = 0
@@ -84,6 +85,7 @@ for f in folds:
             if x == "#":
                 dot_count = dot_count + 1
     print(fold_count, dot_count)
+    # break
 
 
-# print_board(new_board)
+print_board(new_board)
