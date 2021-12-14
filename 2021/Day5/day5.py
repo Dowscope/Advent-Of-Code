@@ -2,22 +2,25 @@
 
 class Line:
     def __init__(self, x1, y1, x2, y2):
-        self.x1 = x1
-        self.y1 = y1
-        self.x2 = x2
-        self.y2 = y2
+        self.x1 = int(x1)
+        self.y1 = int(y1)
+        self.x2 = int(x2)
+        self.y2 = int(y2)
+        self.rangex = abs(self.x2 - self.x1)
+        self.rangey = abs(self.y2 - self.y1)
     def print(self):
-        return str(self.x1) + "," + str(self.y1) + " -> " + str(self.x2) + "," + str(self.y2)
+        print(str(self.x1) + "," + str(self.y1) + " -> " + str(self.x2) + "," + str(self.y2))
     def check_for_touch(self, line):
         touches = 0
-        rangeX = range(abs(int(self.x2) - int(self.x1)))
-        rangeY = range(abs(int(self.y2) - int(self.y1)))
-        for y in rangeY:
-            print(y)
-            for x in rangeX:
-                print("this: " + x,y)
-                if line.is_on(x, y):
-                    touches += 1
+        for y in range(self.rangey):
+            for x in range(self.rangex):
+                print(x,y)
+        # for y in rangeY:
+        #     print(y)
+        #     for x in rangeX:
+        #         print("this: " + x,y)
+        #         if line.is_on(x, y):
+        #             touches += 1
 
         return touches
     def is_on(self, ax, ay):
@@ -40,7 +43,7 @@ def show_result():
         line = lines[0]
         lines.pop(0);
         for l in lines:
-            counter += line.check_for_touch(l)
+            counter = counter + line.check_for_touch(l)
     return counter
 
 input_file = open("sample.txt")
@@ -62,7 +65,7 @@ for c in coords:
     if start_coord[0] == end_coord[0] or start_coord[1] == end_coord[1]:
         lines.append(Line(start_coord[0], start_coord[1], end_coord[0], end_coord[1]))
 
-print(len(lines))
+# print(len(lines))
 print(show_result())
 
 # for l in lines:
