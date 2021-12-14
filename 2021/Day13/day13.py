@@ -2,7 +2,7 @@
 
 import numpy as np
 
-input_data = open("sample.txt").read().split("\n\n")
+input_data = open("input.txt").read().split("\n\n")
 dots_raw = input_data[0].split("\n")
 folds_raw = input_data[1].split("\n")
 
@@ -58,6 +58,8 @@ for f in folds:
         merge_board = new_board[int(f[1])+1:]
         merge_board.reverse()
         for y in range(len(nb)-1, -1, -1):
+            if len(merge_board) == 0:
+                break
             merge_line = merge_board.pop()
             for i in range(len(merge_line)):
                 if merge_line[i] == "#":
@@ -69,7 +71,10 @@ for f in folds:
         for y in new_board:
             nb.append(y[:int(f[1])])
             merge_board.append(y[int(f[1])+1:])
+        merge_board.reverse()
         for y in nb:
+            if len(merge_board) == 0:
+                break
             merge_line = merge_board.pop()
             merge_line.reverse()
             for x in range(len(y)-1, -1, -1):
@@ -85,7 +90,5 @@ for f in folds:
             if x == "#":
                 dot_count = dot_count + 1
     print(fold_count, dot_count)
-    # break
-
 
 print_board(new_board)
