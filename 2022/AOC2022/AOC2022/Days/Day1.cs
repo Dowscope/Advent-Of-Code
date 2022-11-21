@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AOC2022.Tools;
 
 namespace AOC2022.Days
 {
@@ -10,7 +6,7 @@ namespace AOC2022.Days
     {
         public Day1()
         {
-            Console.WriteLine("This is Day1");
+            AOCTools.Log("This is Day1");
         }
     }
 }
