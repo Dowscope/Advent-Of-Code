@@ -11,5 +11,10 @@
         {
             Console.WriteLine(message);
         }
+
+        public static void Log(int message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }
