@@ -4,10 +4,6 @@ namespace AOC2022.Days
 {
     internal class Day1
     {
-        string currentDataFolder = Directory.GetCurrentDirectory() + "../../../../Data/";
-        string dataPath;
-        string[] data;
-
         // This is the list of elves and what they are holding.
         Dictionary<int, int> elvesCalories = new Dictionary<int, int>();
         Dictionary<int, int> topThreeCalories = new Dictionary<int, int>();
@@ -23,8 +19,7 @@ namespace AOC2022.Days
 
         private void _ReadData()
         {
-            dataPath = Path.Combine(currentDataFolder, "Day1.txt");
-            data = File.ReadAllLines(dataPath);
+            string[] data = AOCTools.GetData("Day1");
 
             int elfIndex = 1;
             int totalCalories = 0;
