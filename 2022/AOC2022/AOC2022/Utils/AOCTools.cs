@@ -5,7 +5,17 @@
         public static string[] GetData(string day)
         {
             string dataPath = Directory.GetCurrentDirectory() + "../../../../Data/" + day + ".txt";
-            return File.ReadAllLines(dataPath);
+            
+            try
+            {
+                return File.ReadAllLines(dataPath);
+            }
+            catch
+            {
+                AOCTools.Log("File " + day + " not found!");
+                return Array.Empty<string>();
+            }
+
         }
         public static void Log(string message)
         {
