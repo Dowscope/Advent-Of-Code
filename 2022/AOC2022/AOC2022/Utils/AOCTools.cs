@@ -31,5 +31,9 @@
         {
             Console.WriteLine(message);
         }
+        public static void LogMore(string message)
+        {
+            Console.Write(message);
+        }
     }
 }
