@@ -9,7 +9,7 @@ namespace AOC2022.Days
         private List<string[]> _rucksackCompartments= new List<string[]>();
         private string _alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 
-        public Day3()
+        public Day3(string day): base(day)
         {
             AOCTools.Log("AOC2022 - Day 3");
             ReadData("Day3");

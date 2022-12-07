@@ -7,6 +7,22 @@ namespace AOC2022.Days
     internal abstract class Day
     {
         public string[] data;
+
+        public Day(string day)
+        {
+            AOCTools.Log("AOC2022 - " + day);
+            ReadData(day);
+            if (data != null && data.Length != 0)
+            {
+                Part1();
+                Part2();
+            }
+            else
+            {
+                AOCTools.Log("Data file empty");
+            }
+        }
+
         public void ReadData(string day)
         {
             data = AOCTools.GetData(day);

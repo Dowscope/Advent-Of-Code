@@ -4,7 +4,7 @@ namespace AOC2022.Days
 {
     internal class Day5 : Day
     {
-        public Day5() 
+        public Day5(string day) : base(day)
         {
             AOCTools.Log("AOC2022 - Day 5");
             ReadData("Day5");

@@ -10,7 +10,7 @@ namespace AOC2022.Days
     internal class Day4 : Day
     {
         private int _overlaps = 0;
-        public Day4()
+        public Day4(string day) : base(day)
         {
             AOCTools.Log("AOC2022 - Day 4");
             ReadData("Day4");
