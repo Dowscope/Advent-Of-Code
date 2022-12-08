@@ -10,12 +10,16 @@ namespace AOC2022.Days
 
         public override void Part1()
         {
-            
+
+            foreach (var line in data)
+            {
+
+            }
         }
 
         public override void Part2()
         {
-            
+
         }
     }
 }
