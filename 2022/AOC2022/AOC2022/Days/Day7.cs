@@ -91,6 +91,7 @@ namespace AOC2022.Days
 
             if (current.Parent != null)
             {
+                AOCTools.Log("Adding " + current.TotalFileSize + " to folder " + current.Parent.Name);
                 current.Parent.TotalFileSize += current.TotalFileSize;
             }
         }

@@ -14,6 +14,7 @@ namespace AOC2022.Days
             ReadData(day);
             if (data != null && data.Length != 0)
             {
+                OnStart();
                 Part1();
                 Part2();
             }
@@ -27,9 +28,12 @@ namespace AOC2022.Days
         {
             data = AOCTools.GetData(day);
         }
+        public virtual void OnStart()
+        {
+
+        }
 
         public abstract void Part1();
         public abstract void Part2();
-
     }
 }
