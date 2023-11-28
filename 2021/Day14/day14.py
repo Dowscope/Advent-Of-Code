@@ -19,7 +19,7 @@ def get_insertion_index(template):
     return -1
 
 next_template = ""
-steps = 10
+steps = 40
 for step in range(steps):
     if not step == 0:
         input_template = next_template
@@ -34,7 +34,7 @@ for step in range(steps):
                 continue
             element = pair_insertions[insertion_index][1]
             next_template = next_template + element + input_template[i+1]
-    print("Step " + str(step + 1) + ": " + next_template)
+    # print("Step " + str(step + 1) + ": " + next_template)
 
 elements = {}
 for e in next_template:
@@ -48,4 +48,4 @@ elements_sorted=dict(sorted(elements.items(),key= lambda x:x[1]))
 
 last = elements_sorted.popitem()
 first = list(elements_sorted.values())[0]
-print(first + last[1])
+print(list(last)[1] - first)
