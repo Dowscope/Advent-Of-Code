@@ -54,7 +54,18 @@ public abstract class Day : IDay
         else
         {
           Console.WriteLine("No Results");
-
         }
+    }
+
+    public virtual void Testing() {
+        Console.WriteLine("Testing");
+    }
+
+    public virtual void PartOne() {
+        Console.WriteLine("Testing");
+    }
+
+    public virtual void PartTwo() {
+        Console.WriteLine("Testing");
     }
 }

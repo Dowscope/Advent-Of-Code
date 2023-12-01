@@ -8,4 +8,8 @@ public interface IDay
     Dictionary<int,string> Results {get; set;}
     void LoadContent(string filePath, int index);
     void DisplayResults();
+
+    void Testing();
+    void PartOne();
+    void PartTwo();
 }
