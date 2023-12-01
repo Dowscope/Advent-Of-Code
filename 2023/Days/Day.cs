@@ -4,12 +4,12 @@ namespace _2023;
 
 public abstract class Day : IDay
 {
-    public Dictionary<int,string> Content { get; set; }
+    public Dictionary<int,string[]> Content { get; set; }
     public Dictionary<int,string> Results { get; set; }
 
     public Day()
     {
-        Content = new Dictionary<int,string>();
+        Content = new Dictionary<int,string[]>();
         Results = new Dictionary<int,string>();
     }
 
@@ -18,13 +18,24 @@ public abstract class Day : IDay
         Console.Write($"Loading in {filePath}... ");
         try
         {
-          Content[index] = File.ReadAllText(filePath);
+          Content[index] = File.ReadAllLines(filePath);
           Console.WriteLine("Successful");
         }
         catch (Exception ex)
         {
           Console.WriteLine($"Failed.\nError loading file: {ex.Message}");
           throw;
+        }
+    }
+
+    public void DisplayContent(int index)
+    {
+        if (Content != null && Content.Count > 0)
+        {
+            if (Content.ContainsKey(index))
+            {
+                Console.Write(Content[index] + "\n");
+            }
         }
     }
 
@@ -57,15 +68,17 @@ public abstract class Day : IDay
         }
     }
 
-    public virtual void Testing() {
-        Console.WriteLine("Testing");
+    public virtual void Run(int part) {
+        Console.WriteLine($"Testing {part}");
     }
 
-    public virtual void PartOne() {
-        Console.WriteLine("Testing");
+    public virtual void PartOne(string[] data, out string answer) {
+        Console.WriteLine("Part 1");
+        answer = "";
     }
 
-    public virtual void PartTwo() {
-        Console.WriteLine("Testing");
+    public virtual void PartTwo(string[] data, out string answer) {
+        Console.WriteLine("Part 2");
+        answer = "";
     }
 }

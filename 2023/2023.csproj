@@ -11,8 +11,5 @@
   <ItemGroup>
     <Folder Include="Content\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Days\" />
-  </ItemGroup>
 
 </Project>
