@@ -34,10 +34,10 @@ function partone(data){
   for (var l of lines) {
     const numbers = l.match(/\d/g)
 
-    console.log(`Line OG: ${l}`)
+    // console.log(`Line OG: ${l}`)
     if (numbers != null){
       const strNum = parseInt(numbers[0] + numbers[numbers.length-1])
-      console.log(`Line number: ${strNum}`)
+      // console.log(`Line number: ${strNum}`)
       result += strNum
     }
     else {
