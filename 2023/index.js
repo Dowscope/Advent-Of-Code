@@ -8,6 +8,9 @@ switch (args[0]) {
   case '2':
     Day = require('./Days/Day2/day2')
     break
+  case '3':
+    Day = require('./Days/Day3/day3')
+    break
   default:
     break
 }

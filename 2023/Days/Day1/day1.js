@@ -5,8 +5,8 @@ const red = "\x1b[31m";
 const yellow = "\x1b[38;5;226m";
 
 // const test_filePath = './Days/Day1/test.txt'
-// const test_filePath = './Days/Day1/testb.txt'
-const test_filePath = './Days/Day1/data.txt'
+const test_filePath = './Days/Day1/testb.txt'
+// const test_filePath = './Days/Day1/data.txt'
 
 function run() {
   console.log("Day 1")
