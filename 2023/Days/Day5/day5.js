@@ -16,6 +16,9 @@ function partone(data){
   var seeds
   var phase = -1
 
+  for (seed of seeds) {
+    
+  }
   for (l in lines) {
     const line = lines[l]
 
@@ -24,7 +27,7 @@ function partone(data){
     else if (lines[l].includes(':')) { phase++ }
     else {
       const params = lines[l].split(' ')
-      
+
     }
     console.log (`${phase}`)
   }
